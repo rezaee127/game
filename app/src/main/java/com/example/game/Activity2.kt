@@ -28,5 +28,12 @@ class Activity2 : AppCompatActivity() {
 
         }
 
+        binding.replyBtn.setOnClickListener {
+            Storage.questionNumber=1
+            Storage.score=0
+            val intent=Intent(this,MainActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
