@@ -20,19 +20,31 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        if(savedInstanceState!= null){
+            binding.aNumberTxv .text = savedInstanceState.getString("A")
+            binding.bNumberTxv .text = savedInstanceState.getString("B")
+            binding.answer1Btn .text = savedInstanceState.getString("Button1")
+            binding.answer2Btn .text = savedInstanceState.getString("Button2")
+            binding.answer3Btn .text = savedInstanceState.getString("Button3")
+            binding.answer4Btn .text = savedInstanceState.getString("Button4")
+        }
         if (getIntent().getBooleanExtra("LOGOUT", false))
         {
             finish();
         }
 
+
         btnArray = arrayListOf(binding.answer1Btn,binding.answer2Btn
             ,binding.answer3Btn,binding.answer4Btn)
-
-        dice()
-
+        if(binding.aNumberTxv .text.isBlank()) {
+            dice()
+        }
         binding.diceBtn.setOnClickListener {
             Storage.questionNumber++
             if (Storage.questionNumber==6){
+                if (Storage.maxScore<Storage.score){
+                    Storage.maxScore=Storage.score
+                }
                 val intent= Intent(this,Activity2::class.java)
                 startActivity(intent)
             }
@@ -47,6 +59,16 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
+    override fun onSaveInstanceState(outState: Bundle) {
+    outState.putString("A" , binding.aNumberTxv .text.toString())
+    outState.putString("B" , binding.bNumberTxv .text.toString())
+    outState.putString("Button1" , binding.answer1Btn .text.toString())
+    outState.putString("Button2" , binding.answer2Btn .text.toString())
+    outState.putString("Button3" , binding.answer3Btn .text.toString())
+    outState.putString("Button4" , binding.answer4Btn .text.toString())
+    super.onSaveInstanceState(outState)
+}
 
 
     fun setTextButton(number:Int){
