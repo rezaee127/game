@@ -1,5 +1,6 @@
 package com.example.game
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,8 +18,10 @@ class Activity2 : AppCompatActivity() {
         initView()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initView() {
-       binding.scoreFinalTxv.text=Storage.score.toString()
+       binding.scoreFinalTxv.text="final score is  ${Storage.score.toString()}"
+       binding.record .text="record is  ${Storage.maxScore.toString()}"
 
         binding.exitBtn.setOnClickListener {
             val intent = Intent(applicationContext, MainActivity::class.java)

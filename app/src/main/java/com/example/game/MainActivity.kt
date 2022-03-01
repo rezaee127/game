@@ -29,10 +29,11 @@ class MainActivity : AppCompatActivity() {
             binding.answer4Btn .text = savedInstanceState.getString("Button4")
             binding.answer4Btn .text = savedInstanceState.getString("Button4")
             binding.scoreTxv.text= savedInstanceState.getString("Score")
+            Storage.questionNumber= savedInstanceState.getInt("questionNumber")
         }
         if (getIntent().getBooleanExtra("LOGOUT", false))
         {
-            finish();
+            finish()
         }
 
 
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity() {
     outState.putString("Button3" , binding.answer3Btn .text.toString())
     outState.putString("Button4" , binding.answer4Btn .text.toString())
     outState.putString("Score" , binding.scoreTxv.text.toString())
+    outState.putInt("questionNumber" ,Storage.questionNumber)
         for (button in btnArray){
             var s=button.isEnabled
             var x =button.background
