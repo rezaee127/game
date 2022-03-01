@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.game.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -23,38 +24,16 @@ class MainActivity : AppCompatActivity() {
 
         dice()
 
-        binding.diceBtn.setOnClickListener { dice() }
+        binding.diceBtn.setOnClickListener {
+            for (button in btnArray){
+            button.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500))
+            }
+            enableButton()
+            dice()
+        }
     }
 
-  //  private fun dice() {
 
-
-
-       /* val numRandom = (1..4).random()
-        correctAnswer(numRandom)
-        when (numRandom){
-            1 ->{ binding.answer1Btn.text =Storage.answer().toString()
-                binding.answer2Btn.text = Storage.getRandom().toString()
-                binding.answer3Btn.text = Storage.getRandom().toString()
-                binding.answer4Btn.text =Storage.getRandom().toString()
-            }
-            2 ->{ binding.answer2Btn.text =Storage.answer().toString()
-                binding.answer1Btn.text = Storage.getRandom().toString()
-                binding.answer3Btn.text = Storage.getRandom().toString()
-                binding.answer4Btn.text =Storage.getRandom().toString()
-            }
-            3 ->{ binding.answer3Btn.text =Storage.answer().toString()
-                binding.answer2Btn.text = Storage.getRandom().toString()
-                binding.answer1Btn.text = Storage.getRandom().toString()
-                binding.answer4Btn.text =Storage.getRandom().toString()
-            }
-            4 ->{ binding.answer4Btn.text =Storage.answer().toString()
-                binding.answer2Btn.text = Storage.getRandom().toString()
-                binding.answer3Btn.text = Storage.getRandom().toString()
-                binding.answer1Btn.text =Storage.getRandom().toString()
-            }
-        }*/
-//    }
 
 
     fun setTextButton(number:Int){
@@ -69,26 +48,33 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-   // @SuppressLint("ResourceAsColor")
-    fun correctAnswer(number:Int){
+    fun correctAnswer(button: Button){
+       if(button.text==mode.toString()){
+           Toast.makeText(this,"correct",Toast.LENGTH_SHORT).show()
+           Storage.score+=5
+           binding.scoreTxv.text=Storage.score.toString()
+           button.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
+           disableButton()
+       } else{
+           Toast.makeText(this,"incorrect",Toast.LENGTH_SHORT).show()
+           Storage.score-=2
+           binding.scoreTxv.text=Storage.score.toString()
+           button.setBackgroundColor(ContextCompat.getColor(this, R.color.red))
+           disableButton()
+       }
 
+    }
 
-      //  for (i in btnArray.indices){
+    private fun disableButton() {
+       for (button in btnArray){
+           button.isEnabled=false
+       }
+    }
 
-
-
-
-
-               /* if (number == i){
-                  //  btnArray[i].setBackgroundColor(R.color.green)
-                    Toast.makeText(this,"correct",Toast.LENGTH_SHORT).show()
-                    break
-                }else{
-                   // btnArray[i].setBackgroundColor(R.color.red)
-                    Toast.makeText(this,"incorrect",Toast.LENGTH_SHORT).show()
-                    break
-                }
-*/
+    private fun enableButton() {
+        for (button in btnArray){
+            button.isEnabled=true
+        }
     }
 
     private fun dice() {
@@ -97,36 +83,25 @@ class MainActivity : AppCompatActivity() {
          mode=a%b
         binding.aNumberTxv.text = a.toString()
         binding.bNumberTxv.text = b.toString()
+        binding.scoreTxv.text=Storage.score.toString()
         val numRandom = (0..3).random()
         setTextButton(numRandom)
 
-            binding.answer1Btn.setOnClickListener {
-               if(binding.answer1Btn.text==mode.toString()){
-                   Toast.makeText(this,"correct",Toast.LENGTH_SHORT).show()
-               } else{
-                   Toast.makeText(this,"incorrect",Toast.LENGTH_SHORT).show()
-               }
+        for (button in btnArray){
+            button.setOnClickListener {  }
+        }
+
+        binding.answer1Btn.setOnClickListener {
+            correctAnswer(binding.answer1Btn)
         }
         binding.answer2Btn.setOnClickListener {
-            if(binding.answer2Btn.text==mode.toString()){
-                Toast.makeText(this,"correct",Toast.LENGTH_SHORT).show()
-            } else{
-                Toast.makeText(this,"incorrect",Toast.LENGTH_SHORT).show()
-            }
+            correctAnswer(binding.answer2Btn)
         }
         binding.answer3Btn.setOnClickListener {
-            if(binding.answer3Btn.text==mode.toString()){
-                Toast.makeText(this,"correct",Toast.LENGTH_SHORT).show()
-            } else{
-                Toast.makeText(this,"incorrect",Toast.LENGTH_SHORT).show()
-            }
+            correctAnswer(binding.answer3Btn)
         }
         binding.answer4Btn.setOnClickListener {
-            if(binding.answer4Btn.text==mode.toString()){
-                Toast.makeText(this,"correct",Toast.LENGTH_SHORT).show()
-            } else{
-                Toast.makeText(this,"incorrect",Toast.LENGTH_SHORT).show()
-            }
+            correctAnswer(binding.answer4Btn)
         }
     }
 }

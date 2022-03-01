@@ -1,7 +1,7 @@
 package com.example.game
 
 object Storage {
-
+    var score=0
     var a =-1
     var b =-1
     fun randomNumberA():Int{
