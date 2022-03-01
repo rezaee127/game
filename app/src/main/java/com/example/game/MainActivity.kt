@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
             binding.answer2Btn .text = savedInstanceState.getString("Button2")
             binding.answer3Btn .text = savedInstanceState.getString("Button3")
             binding.answer4Btn .text = savedInstanceState.getString("Button4")
+            binding.answer4Btn .text = savedInstanceState.getString("Button4")
+            binding.scoreTxv.text= savedInstanceState.getString("Score")
         }
         if (getIntent().getBooleanExtra("LOGOUT", false))
         {
@@ -67,6 +69,11 @@ class MainActivity : AppCompatActivity() {
     outState.putString("Button2" , binding.answer2Btn .text.toString())
     outState.putString("Button3" , binding.answer3Btn .text.toString())
     outState.putString("Button4" , binding.answer4Btn .text.toString())
+    outState.putString("Score" , binding.scoreTxv.text.toString())
+        for (button in btnArray){
+            var s=button.isEnabled
+            var x =button.background
+        }
     super.onSaveInstanceState(outState)
 }
 
@@ -89,6 +96,7 @@ class MainActivity : AppCompatActivity() {
            Storage.score+=5
            binding.scoreTxv.text=Storage.score.toString()
            button.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
+
            disableButton()
        } else{
            Toast.makeText(this,"incorrect",Toast.LENGTH_SHORT).show()

@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/leftOver"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,9 +33,9 @@
         android:id="@+id/leftOver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="باقیمانده عدد بالای رو به پایینی حدس بزنید"
+        android:text="@string/questionText"
         android:textSize="20sp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bNumber_txv" />
@@ -43,7 +44,7 @@
         android:id="@+id/answer1_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toStartOf="@+id/answer2_btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +56,7 @@
         android:id="@+id/answer2_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/answer1_btn"
         app:layout_constraintTop_toBottomOf="@id/leftOver">
@@ -67,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintStart_toEndOf="@+id/answer4_btn"
         app:layout_constraintTop_toBottomOf="@id/answer2_btn">
 
@@ -78,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@+id/answer3_btn"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/answer1_btn">
 
@@ -87,10 +88,10 @@
         android:id="@+id/dice_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dice"
+        android:text="@string/dice"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintTop_toBottomOf="@id/answer3_btn"/>
 
     <androidx.constraintlayout.widget.Guideline
@@ -98,7 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="10dp" />
+        app:layout_constraintGuide_begin="1dp" />
 
     <TextView
         android:id="@+id/score_txv"
