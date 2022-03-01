@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         dice()
 
         binding.diceBtn.setOnClickListener {
+            Storage.questionNumber++
             for (button in btnArray){
             button.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500))
             }

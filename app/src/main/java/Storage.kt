@@ -2,6 +2,7 @@ package com.example.game
 
 object Storage {
     var score=0
+    var questionNumber=1
     var a =-1
     var b =-1
     fun randomNumberA():Int{
