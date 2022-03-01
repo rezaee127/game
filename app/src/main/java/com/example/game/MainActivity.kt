@@ -2,6 +2,7 @@ package com.example.game
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -19,6 +20,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        if (getIntent().getBooleanExtra("LOGOUT", false))
+        {
+            finish();
+        }
+
         btnArray = arrayListOf(binding.answer1Btn,binding.answer2Btn
             ,binding.answer3Btn,binding.answer4Btn)
 
@@ -26,11 +32,17 @@ class MainActivity : AppCompatActivity() {
 
         binding.diceBtn.setOnClickListener {
             Storage.questionNumber++
-            for (button in btnArray){
-            button.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500))
+            if (Storage.questionNumber==6){
+                val intent= Intent(this,Activity2::class.java)
+                startActivity(intent)
             }
-            enableButton()
-            dice()
+            else {
+                for (button in btnArray) {
+                    button.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500))
+                }
+                enableButton()
+                dice()
+            }
         }
     }
 
