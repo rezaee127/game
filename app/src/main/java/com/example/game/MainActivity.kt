@@ -20,13 +20,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         if(savedInstanceState!= null){
             binding.aNumberTxv .text = savedInstanceState.getString("A")
             binding.bNumberTxv .text = savedInstanceState.getString("B")
             binding.answer1Btn .text = savedInstanceState.getString("Button1")
             binding.answer2Btn .text = savedInstanceState.getString("Button2")
             binding.answer3Btn .text = savedInstanceState.getString("Button3")
-            binding.answer4Btn .text = savedInstanceState.getString("Button4")
             binding.answer4Btn .text = savedInstanceState.getString("Button4")
             binding.answer1Btn.isEnabled = savedInstanceState.getBoolean("Enable")
             binding.answer2Btn.isEnabled = savedInstanceState.getBoolean("Enable")
@@ -35,9 +35,7 @@ class MainActivity : AppCompatActivity() {
             binding.scoreTxv.text= savedInstanceState.getString("Score")
             Storage.questionNumber= savedInstanceState.getInt("questionNumber")
         }
-        if (getIntent().getBooleanExtra("LOGOUT", false)) {
-            finish()
-        }
+
 
 
 
