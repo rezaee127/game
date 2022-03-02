@@ -100,14 +100,14 @@ class MainActivity : AppCompatActivity() {
 
     fun correctAnswer(button: Button){
        if(button.text==mode.toString()){
-           Toast.makeText(this,"correct",Toast.LENGTH_SHORT).show()
+           //Toast.makeText(this,"correct",Toast.LENGTH_SHORT).show()
            Storage.score+=5
            binding.scoreTxv.text=Storage.score.toString()
            button.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
 
            disableButton()
        } else{
-           Toast.makeText(this,"incorrect",Toast.LENGTH_SHORT).show()
+           //Toast.makeText(this,"incorrect",Toast.LENGTH_SHORT).show()
            Storage.score-=2
            binding.scoreTxv.text=Storage.score.toString()
            button.setBackgroundColor(ContextCompat.getColor(this, R.color.red))
