@@ -12,6 +12,7 @@ class Activity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_2)
+
         binding = Activity2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
