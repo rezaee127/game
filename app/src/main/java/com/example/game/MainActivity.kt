@@ -28,13 +28,17 @@ class MainActivity : AppCompatActivity() {
             binding.answer3Btn .text = savedInstanceState.getString("Button3")
             binding.answer4Btn .text = savedInstanceState.getString("Button4")
             binding.answer4Btn .text = savedInstanceState.getString("Button4")
+            binding.answer1Btn.isEnabled = savedInstanceState.getBoolean("Enable")
+            binding.answer2Btn.isEnabled = savedInstanceState.getBoolean("Enable")
+            binding.answer3Btn.isEnabled = savedInstanceState.getBoolean("Enable")
+            binding.answer4Btn.isEnabled = savedInstanceState.getBoolean("Enable")
             binding.scoreTxv.text= savedInstanceState.getString("Score")
             Storage.questionNumber= savedInstanceState.getInt("questionNumber")
         }
-        if (getIntent().getBooleanExtra("LOGOUT", false))
-        {
+        if (getIntent().getBooleanExtra("LOGOUT", false)) {
             finish()
         }
+
 
 
         btnArray = arrayListOf(binding.answer1Btn,binding.answer2Btn
@@ -44,10 +48,11 @@ class MainActivity : AppCompatActivity() {
         }
         binding.diceBtn.setOnClickListener {
             Storage.questionNumber++
-            if (Storage.questionNumber==6){
+            if (Storage.questionNumber>=6){
                 if (Storage.maxScore<Storage.score){
                     Storage.maxScore=Storage.score
                 }
+                Storage.questionNumber=1
                 val intent= Intent(this,Activity2::class.java)
                 startActivity(intent)
             }
@@ -72,6 +77,7 @@ class MainActivity : AppCompatActivity() {
     outState.putString("Button4" , binding.answer4Btn .text.toString())
     outState.putString("Score" , binding.scoreTxv.text.toString())
     outState.putInt("questionNumber" ,Storage.questionNumber)
+    outState.putBoolean("Enable" , binding.answer4Btn.isEnabled)
         for (button in btnArray){
             var s=button.isEnabled
             var x =button.background

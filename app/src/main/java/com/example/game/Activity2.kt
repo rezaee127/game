@@ -24,6 +24,8 @@ class Activity2 : AppCompatActivity() {
        binding.record .text="record is  ${Storage.maxScore.toString()}"
 
         binding.exitBtn.setOnClickListener {
+            Storage.questionNumber=1
+            Storage.score=0
             val intent = Intent(applicationContext, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             intent.putExtra("LOGOUT", true)
