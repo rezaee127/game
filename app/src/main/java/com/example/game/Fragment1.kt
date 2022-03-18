@@ -1,29 +1,43 @@
 package com.example.game
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.CountDownTimer
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.game.databinding.ActivityMainBinding
+import androidx.navigation.fragment.findNavController
+import com.example.game.databinding.Fragment1Binding
+import com.example.game.databinding.Fragment2Binding
 
-
-class Activity1 : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
-    lateinit var pref:SharedPreferences
+class Fragment1 : Fragment() {
+    lateinit var binding: Fragment1Binding
+    lateinit var pref: SharedPreferences
     var btnArray=ArrayList<Button>()
     var a=0
     var b=0
     var mode=-1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = Fragment1Binding.inflate (inflater, container, false)
+        return binding.root
+        // Inflate the layout for this fragment
+        //return inflater.inflate(R.layout.fragment_1, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         if(savedInstanceState!= null){
             binding.aNumberTxv .text = savedInstanceState.getString("A")
@@ -39,7 +53,7 @@ class Activity1 : AppCompatActivity() {
             binding.scoreTxv.text= savedInstanceState.getString("Score")
             Storage.questionNumber= savedInstanceState.getInt("questionNumber")
         }
-        pref = getSharedPreferences("shared", MODE_PRIVATE)
+        val pref = requireActivity().getSharedPreferences("share", Context.MODE_PRIVATE)
         if (!(pref.getString("maxScore","")).isNullOrBlank()) {
             Storage.maxScore = pref.getString("maxScore", "").toString().toInt()
         }
@@ -58,12 +72,11 @@ class Activity1 : AppCompatActivity() {
                     Storage.maxScore=Storage.score
                 }
                 Storage.questionNumber=1
-                val intent= Intent(this,Activity2::class.java)
-                startActivity(intent)
+                findNavController().navigate(R.id.action_fragment1_to_fragment2)
             }
             else {
                 for (button in btnArray) {
-                    button.setBackgroundColor(ContextCompat.getColor(this, R.color.purple_500))
+                    button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.purple_500))
                 }
                 enableButton()
                 dice()
@@ -75,54 +88,54 @@ class Activity1 : AppCompatActivity() {
 
 
     override fun onSaveInstanceState(outState: Bundle) {
-    outState.putString("A" , binding.aNumberTxv .text.toString())
-    outState.putString("B" , binding.bNumberTxv .text.toString())
-    outState.putString("Button1" , binding.answer1Btn .text.toString())
-    outState.putString("Button2" , binding.answer2Btn .text.toString())
-    outState.putString("Button3" , binding.answer3Btn .text.toString())
-    outState.putString("Button4" , binding.answer4Btn .text.toString())
-    outState.putString("Score" , binding.scoreTxv.text.toString())
-    outState.putInt("questionNumber" ,Storage.questionNumber)
-    outState.putBoolean("isClickable" , binding.answer4Btn.isClickable)
+        outState.putString("A" , binding.aNumberTxv .text.toString())
+        outState.putString("B" , binding.bNumberTxv .text.toString())
+        outState.putString("Button1" , binding.answer1Btn .text.toString())
+        outState.putString("Button2" , binding.answer2Btn .text.toString())
+        outState.putString("Button3" , binding.answer3Btn .text.toString())
+        outState.putString("Button4" , binding.answer4Btn .text.toString())
+        outState.putString("Score" , binding.scoreTxv.text.toString())
+        outState.putInt("questionNumber" ,Storage.questionNumber)
+        outState.putBoolean("isClickable" , binding.answer4Btn.isClickable)
 
-    super.onSaveInstanceState(outState)
-}
+        super.onSaveInstanceState(outState)
+    }
 
 
     fun setTextButton(number:Int){
         for (i in btnArray.indices){
-                if (number == i){
-                    btnArray[i].text =mode.toString()
-                }else{
-                    btnArray[i].text=Storage.getRandom().toString()
-                }
+            if (number == i){
+                btnArray[i].text =mode.toString()
+            }else{
+                btnArray[i].text=Storage.getRandom().toString()
+            }
 
         }
     }
 
 
     fun correctAnswer(button: Button){
-       if(button.text==mode.toString()){
-           //Toast.makeText(this,"correct",Toast.LENGTH_SHORT).show()
-           Storage.score+=5
-           binding.scoreTxv.text=Storage.score.toString()
-           button.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
+        if(button.text==mode.toString()){
+            //Toast.makeText(this,"correct",Toast.LENGTH_SHORT).show()
+            Storage.score+=5
+            binding.scoreTxv.text=Storage.score.toString()
+            button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.green))
 
-           disableButton()
-       } else{
-           //Toast.makeText(this,"incorrect",Toast.LENGTH_SHORT).show()
-           Storage.score-=2
-           binding.scoreTxv.text=Storage.score.toString()
-           button.setBackgroundColor(ContextCompat.getColor(this, R.color.red))
-           disableButton()
-       }
+            disableButton()
+        } else{
+            //Toast.makeText(this,"incorrect",Toast.LENGTH_SHORT).show()
+            Storage.score-=2
+            binding.scoreTxv.text=Storage.score.toString()
+            button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.red))
+            disableButton()
+        }
 
     }
 
     private fun disableButton() {
-       for (button in btnArray){
-           button.isClickable=false
-       }
+        for (button in btnArray){
+            button.isClickable=false
+        }
     }
 
     private fun enableButton() {
@@ -131,11 +144,11 @@ class Activity1 : AppCompatActivity() {
         }
     }
 
-     fun dice() {
+    fun dice() {
 
-         a=Storage.randomNumberA()
-         b=Storage.randomNumberB()
-         mode=a%b
+        a=Storage.randomNumberA()
+        b=Storage.randomNumberB()
+        mode=a%b
         binding.aNumberTxv.text = a.toString()
         binding.bNumberTxv.text = b.toString()
         binding.scoreTxv.text=Storage.score.toString()
