@@ -3,15 +3,19 @@ package com.example.game
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.game.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-    lateinit var binding:ActivityMainBinding
+
+class Activity1 : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
+    lateinit var pref:SharedPreferences
     var btnArray=ArrayList<Button>()
     var a=0
     var b=0
@@ -28,23 +32,26 @@ class MainActivity : AppCompatActivity() {
             binding.answer2Btn .text = savedInstanceState.getString("Button2")
             binding.answer3Btn .text = savedInstanceState.getString("Button3")
             binding.answer4Btn .text = savedInstanceState.getString("Button4")
-            binding.answer1Btn.isEnabled = savedInstanceState.getBoolean("Enable")
-            binding.answer2Btn.isEnabled = savedInstanceState.getBoolean("Enable")
-            binding.answer3Btn.isEnabled = savedInstanceState.getBoolean("Enable")
-            binding.answer4Btn.isEnabled = savedInstanceState.getBoolean("Enable")
+            binding.answer1Btn.isClickable = savedInstanceState.getBoolean("isClickable")
+            binding.answer2Btn.isClickable = savedInstanceState.getBoolean("isClickable")
+            binding.answer3Btn.isClickable = savedInstanceState.getBoolean("isClickable")
+            binding.answer4Btn.isClickable = savedInstanceState.getBoolean("isClickable")
             binding.scoreTxv.text= savedInstanceState.getString("Score")
             Storage.questionNumber= savedInstanceState.getInt("questionNumber")
         }
-
-
-
+        pref = getSharedPreferences("shared", MODE_PRIVATE)
+        if (!(pref.getString("maxScore","")).isNullOrBlank()) {
+            Storage.maxScore = pref.getString("maxScore", "").toString().toInt()
+        }
 
         btnArray = arrayListOf(binding.answer1Btn,binding.answer2Btn
             ,binding.answer3Btn,binding.answer4Btn)
         if(binding.aNumberTxv .text.isBlank()) {
             dice()
+
         }
         binding.diceBtn.setOnClickListener {
+
             Storage.questionNumber++
             if (Storage.questionNumber>=6){
                 if (Storage.maxScore<Storage.score){
@@ -60,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 enableButton()
                 dice()
+
             }
         }
     }
@@ -75,11 +83,8 @@ class MainActivity : AppCompatActivity() {
     outState.putString("Button4" , binding.answer4Btn .text.toString())
     outState.putString("Score" , binding.scoreTxv.text.toString())
     outState.putInt("questionNumber" ,Storage.questionNumber)
-    outState.putBoolean("Enable" , binding.answer4Btn.isEnabled)
-        for (button in btnArray){
-            var s=button.isEnabled
-            var x =button.background
-        }
+    outState.putBoolean("isClickable" , binding.answer4Btn.isClickable)
+
     super.onSaveInstanceState(outState)
 }
 
@@ -116,17 +121,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun disableButton() {
        for (button in btnArray){
-           button.isEnabled=false
+           button.isClickable=false
        }
     }
 
     private fun enableButton() {
         for (button in btnArray){
-            button.isEnabled=true
+            button.isClickable=true
         }
     }
 
-    private fun dice() {
+     fun dice() {
+
          a=Storage.randomNumberA()
          b=Storage.randomNumberB()
          mode=a%b
@@ -153,4 +159,5 @@ class MainActivity : AppCompatActivity() {
             correctAnswer(binding.answer4Btn)
         }
     }
+
 }
