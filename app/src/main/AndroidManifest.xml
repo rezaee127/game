@@ -12,7 +12,7 @@
         <activity
             android:name=".Activity2"
             android:exported="false" />
-       
+
         <activity
             android:name=".Activity1"
             android:exported="true">
