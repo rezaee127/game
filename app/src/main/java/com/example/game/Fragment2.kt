@@ -15,7 +15,6 @@ import com.google.android.material.internal.ContextUtils
 
 class Fragment2 : Fragment() {
     lateinit var binding: Fragment2Binding
-    lateinit var edit: SharedPreferences.Editor
     var max=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +73,7 @@ class Fragment2 : Fragment() {
 
     private fun saveOnSharedPreferences(){
         val pref = requireActivity().getSharedPreferences("share", Context.MODE_PRIVATE)
-        edit = pref.edit()
+        val edit = pref.edit()
         edit.putString("maxScore", Storage.maxScore.toString())
         edit.apply()
     }

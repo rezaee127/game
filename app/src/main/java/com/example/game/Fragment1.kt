@@ -17,7 +17,6 @@ import com.example.game.databinding.Fragment2Binding
 
 class Fragment1 : Fragment() {
     lateinit var binding: Fragment1Binding
-    lateinit var pref: SharedPreferences
     var btnArray=ArrayList<Button>()
     var a=0
     var b=0
@@ -38,6 +37,7 @@ class Fragment1 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         if(savedInstanceState!= null){
             binding.aNumberTxv .text = savedInstanceState.getString("A")

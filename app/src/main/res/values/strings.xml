@@ -2,4 +2,5 @@
     <string name="app_name">game</string>
     <string name="dice">Dice</string>
     <string name="questionText">باقیمانده عدد بالای رو به پایینی حدس بزنید</string>
+
 </resources>

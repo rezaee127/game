@@ -5,6 +5,11 @@ object Storage {
     var questionNumber=1
     var maxScore=0
     var count=0
+    var operator=""
+    var a1=1
+    var a2=100
+    var b1=1
+    var b2=10
     var a =-1
     var b =-1
     fun randomNumberA():Int{
