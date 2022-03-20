@@ -38,7 +38,7 @@ class Fragment1 : Fragment() {
         if(savedInstanceState!= null){
             binding.aNumberTxv .text = savedInstanceState.getString("A")
             binding.bNumberTxv .text = savedInstanceState.getString("B")
-            binding.leftOver.text = savedInstanceState.getString("Text")
+            binding.textViewComment.text = savedInstanceState.getString("Text")
             binding.answer1Btn .text = savedInstanceState.getString("Button1")
             binding.answer2Btn .text = savedInstanceState.getString("Button2")
             binding.answer3Btn .text = savedInstanceState.getString("Button3")
@@ -86,7 +86,7 @@ class Fragment1 : Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString("A" , binding.aNumberTxv .text.toString())
         outState.putString("B" , binding.bNumberTxv .text.toString())
-        outState.putString("Text" , binding.leftOver.text.toString())
+        outState.putString("Text" , binding.textViewComment.text.toString())
         outState.putString("Button1" , binding.answer1Btn .text.toString())
         outState.putString("Button2" , binding.answer2Btn .text.toString())
         outState.putString("Button3" , binding.answer3Btn .text.toString())
@@ -161,11 +161,11 @@ class Fragment1 : Fragment() {
             binding.bNumberTxv.text = Storage.b.toString()
             binding.scoreTxv.text = Storage.score.toString()
             when(Storage.operator){
-                "+"-> binding.leftOver.text="مجموع دو عدد بالا را حدس بزنید"
-                "-"-> binding.leftOver.text="نتیجه تفریق عدد پایینی از عدد بالایی کدام است؟"
-                "*"-> binding.leftOver.text="حاصل ضرب دو عدد بالا را حدس بزنید"
-                "/"-> binding.leftOver.text="خارج قسمت تقسیم عدد بالایی بر عدد پایینی کدام است؟"
-                "%"-> binding.leftOver.text="باقیمانده تقسیم عدد بالایی بر عدد پایینی کدام است؟"
+                "+"-> binding.textViewComment.text="مجموع دو عدد بالا را حدس بزنید"
+                "-"-> binding.textViewComment.text="نتیجه تفریق عدد پایینی از عدد بالایی کدام است؟"
+                "*"-> binding.textViewComment.text="حاصل ضرب دو عدد بالا را حدس بزنید"
+                "/"-> binding.textViewComment.text="خارج قسمت تقسیم عدد بالایی بر عدد پایینی کدام است؟"
+                "%"-> binding.textViewComment.text="باقیمانده تقسیم عدد بالایی بر عدد پایینی کدام است؟"
             }
             val numRandom = (0..3).random()
             setTextButton(numRandom)
