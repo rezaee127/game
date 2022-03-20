@@ -1,5 +1,6 @@
 package com.example.game
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.example.game.databinding.Fragment1Binding
@@ -31,22 +33,23 @@ class Fragment1 : Fragment() {
         //return inflater.inflate(R.layout.fragment_1, container, false)
     }
 
+    @SuppressLint("CutPasteId")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         if(savedInstanceState!= null){
-            binding.aNumberTxv .text = savedInstanceState.getString("A")
-            binding.bNumberTxv .text = savedInstanceState.getString("B")
-            binding.textViewComment.text = savedInstanceState.getString("Text")
-            binding.answer1Btn .text = savedInstanceState.getString("Button1")
-            binding.answer2Btn .text = savedInstanceState.getString("Button2")
-            binding.answer3Btn .text = savedInstanceState.getString("Button3")
-            binding.answer4Btn .text = savedInstanceState.getString("Button4")
-            binding.answer1Btn.isEnabled = savedInstanceState.getBoolean("isEnabled")
-            binding.answer2Btn.isEnabled = savedInstanceState.getBoolean("isEnabled")
-            binding.answer3Btn.isEnabled = savedInstanceState.getBoolean("isEnabled")
-            binding.answer4Btn.isEnabled = savedInstanceState.getBoolean("isEnabled")
-            binding.scoreTxv.text= savedInstanceState.getString("Score")
+            view.findViewById<TextView>(R.id.aNumber_txv).text = savedInstanceState.getString("A")
+            view.findViewById<TextView>(R.id.bNumber_txv).text = savedInstanceState.getString("B")
+            view.findViewById<TextView>(R.id.text_view_comment).text = savedInstanceState.getString("Text")
+            view.findViewById<Button>(R.id.answer1_btn).text = savedInstanceState.getString("Button1")
+            view.findViewById<Button>(R.id.answer2_btn).text = savedInstanceState.getString("Button2")
+            view.findViewById<Button>(R.id.answer3_btn).text = savedInstanceState.getString("Button3")
+            view.findViewById<Button>(R.id.answer4_btn).text = savedInstanceState.getString("Button4")
+            view.findViewById<Button>(R.id.answer1_btn).isEnabled = savedInstanceState.getBoolean("isEnabled")
+            view.findViewById<Button>(R.id.answer2_btn).isEnabled = savedInstanceState.getBoolean("isEnabled")
+            view.findViewById<Button>(R.id.answer3_btn).isEnabled = savedInstanceState.getBoolean("isEnabled")
+            view.findViewById<Button>(R.id.answer4_btn).isEnabled = savedInstanceState.getBoolean("isEnabled")
+            view.findViewById<TextView>(R.id.score_txv).text= savedInstanceState.getString("Score")
             Storage.questionNumber= savedInstanceState.getInt("questionNumber")
         }
 
@@ -84,16 +87,16 @@ class Fragment1 : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("A" , binding.aNumberTxv .text.toString())
-        outState.putString("B" , binding.bNumberTxv .text.toString())
-        outState.putString("Text" , binding.textViewComment.text.toString())
-        outState.putString("Button1" , binding.answer1Btn .text.toString())
-        outState.putString("Button2" , binding.answer2Btn .text.toString())
-        outState.putString("Button3" , binding.answer3Btn .text.toString())
-        outState.putString("Button4" , binding.answer4Btn .text.toString())
-        outState.putString("Score" , binding.scoreTxv.text.toString())
+        outState.putString("A" , view?.findViewById<TextView>(R.id.aNumber_txv)?.text.toString())
+        outState.putString("B" , view?.findViewById<TextView>(R.id.bNumber_txv)?.text.toString())
+        outState.putString("Text" , view?.findViewById<TextView>(R.id.text_view_comment)?.text.toString())
+        outState.putString("Button1" ,view?.findViewById<Button>(R.id.answer1_btn)?.text.toString())
+        outState.putString("Button2" , view?.findViewById<Button>(R.id.answer2_btn)?.text.toString())
+        outState.putString("Button3" , view?.findViewById<Button>(R.id.answer3_btn)?.text.toString())
+        outState.putString("Button4" , view?.findViewById<Button>(R.id.answer4_btn)?.text.toString())
+        outState.putString("Score" , view?.findViewById<TextView>(R.id.score_txv)?.text.toString())
         outState.putInt("questionNumber" ,Storage.questionNumber)
-        outState.putBoolean("isEnabled" , binding.answer4Btn.isEnabled)
+        view?.findViewById<Button>(R.id.answer4_btn)?.isEnabled?.let { outState.putBoolean("isEnabled",it)}
         super.onSaveInstanceState(outState)
 
     }
