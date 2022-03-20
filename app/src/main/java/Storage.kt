@@ -5,7 +5,6 @@ object Storage {
     var score=0
     var questionNumber=1
     var maxScore=0
-    var count=0
     var operator=""
     var result=0
     var a1=1

@@ -14,7 +14,7 @@ import com.google.android.material.internal.ContextUtils
 
 class Fragment2 : Fragment() {
     lateinit var binding: Fragment2Binding
-    var max=""
+   // var max=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -33,30 +33,28 @@ class Fragment2 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        saveOnSharedPreferences()
+
     }
 
     @SuppressLint("SetTextI18n", "RestrictedApi")
     private fun initView() {
-        saveOnSharedPreferences()
-       /* if (Storage.count==0){
+
+        val pref = requireActivity().getSharedPreferences("share", Context.MODE_PRIVATE)
+        if(pref.getString("maxScore","").isNullOrBlank()){
             saveOnSharedPreferences()
-            Storage.count++
-        }
-
-
-        */
-        getMaxScoreFromShared()
-
-        if (!max.isNullOrBlank()){
-            if (max >Storage.maxScore.toString()){
-                Storage.maxScore=max.toInt()
+        }else {
+            if( pref.getString("maxScore","").toString().toInt()>Storage.maxScore){
+                Storage.maxScore=pref.getString("maxScore","").toString().toInt()
+            }else {
                 saveOnSharedPreferences()
             }
         }
 
+
+
         binding.scoreFinalTxv.text="امتیاز شما : ${Storage.score}"
         binding.record .text="رکورد بازی : ${Storage.maxScore}"
+
 
         binding.exitBtn.setOnClickListener {
             Storage.questionNumber=1
@@ -71,7 +69,10 @@ class Fragment2 : Fragment() {
             findNavController().navigate(R.id.action_fragment2_to_fragment1)
         }
 
+
         binding.buttonGoToFragment0.setOnClickListener {
+            Storage.questionNumber=1
+            Storage.score=0
             findNavController().navigate(R.id.action_fragment2_to_fragment0)
         }
 
@@ -83,14 +84,6 @@ class Fragment2 : Fragment() {
         edit.putString("maxScore", Storage.maxScore.toString())
         edit.apply()
     }
-
-    private fun getMaxScoreFromShared() :String{
-        val pref = requireActivity().getSharedPreferences("share", Context.MODE_PRIVATE)
-        max= pref.getString("maxScore","").toString()
-        return max
-    }
-
-
 
 
 }

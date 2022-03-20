@@ -26,7 +26,7 @@ class Fragment1 : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = Fragment1Binding.inflate (inflater, container, false)
         return binding.root
         // Inflate the layout for this fragment
