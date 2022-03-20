@@ -2,7 +2,6 @@ package com.example.game
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,7 +22,7 @@ class Fragment2 : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = Fragment2Binding.inflate (inflater, container, false)
         return binding.root
         // Inflate the layout for this fragment
@@ -40,10 +39,14 @@ class Fragment2 : Fragment() {
     @SuppressLint("SetTextI18n", "RestrictedApi")
     private fun initView() {
         saveOnSharedPreferences()
-        if (Storage.count==0){
+       /* if (Storage.count==0){
             saveOnSharedPreferences()
             Storage.count++
         }
+
+
+        */
+        getMaxScoreFromShared()
 
         if (!max.isNullOrBlank()){
             if (max >Storage.maxScore.toString()){
@@ -58,7 +61,6 @@ class Fragment2 : Fragment() {
         binding.exitBtn.setOnClickListener {
             Storage.questionNumber=1
             Storage.score=0
-            // saveOnSharedPreferences()
             ContextUtils.getActivity(this.context)?.finishAffinity()
         }
 
@@ -87,6 +89,8 @@ class Fragment2 : Fragment() {
         max= pref.getString("maxScore","").toString()
         return max
     }
+
+
 
 
 }

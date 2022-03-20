@@ -34,7 +34,6 @@ class Fragment1 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         if(savedInstanceState!= null){
             binding.aNumberTxv .text = savedInstanceState.getString("A")
             binding.bNumberTxv .text = savedInstanceState.getString("B")
@@ -43,13 +42,14 @@ class Fragment1 : Fragment() {
             binding.answer2Btn .text = savedInstanceState.getString("Button2")
             binding.answer3Btn .text = savedInstanceState.getString("Button3")
             binding.answer4Btn .text = savedInstanceState.getString("Button4")
-            binding.answer1Btn.isClickable = savedInstanceState.getBoolean("isClickable")
-            binding.answer2Btn.isClickable = savedInstanceState.getBoolean("isClickable")
-            binding.answer3Btn.isClickable = savedInstanceState.getBoolean("isClickable")
-            binding.answer4Btn.isClickable = savedInstanceState.getBoolean("isClickable")
+            binding.answer1Btn.isEnabled = savedInstanceState.getBoolean("isEnabled")
+            binding.answer2Btn.isEnabled = savedInstanceState.getBoolean("isEnabled")
+            binding.answer3Btn.isEnabled = savedInstanceState.getBoolean("isEnabled")
+            binding.answer4Btn.isEnabled = savedInstanceState.getBoolean("isEnabled")
             binding.scoreTxv.text= savedInstanceState.getString("Score")
             Storage.questionNumber= savedInstanceState.getInt("questionNumber")
         }
+
         val pref = requireActivity().getSharedPreferences("share", Context.MODE_PRIVATE)
         if (!(pref.getString("maxScore","")).isNullOrBlank()) {
             Storage.maxScore = pref.getString("maxScore", "").toString().toInt()
@@ -93,9 +93,9 @@ class Fragment1 : Fragment() {
         outState.putString("Button4" , binding.answer4Btn .text.toString())
         outState.putString("Score" , binding.scoreTxv.text.toString())
         outState.putInt("questionNumber" ,Storage.questionNumber)
-        outState.putBoolean("isClickable" , binding.answer4Btn.isClickable)
-
+        outState.putBoolean("isEnabled" , binding.answer4Btn.isEnabled)
         super.onSaveInstanceState(outState)
+
     }
 
 
@@ -124,14 +124,12 @@ class Fragment1 : Fragment() {
 
     fun correctAnswer(button: Button){
         if(button.text==Storage.result.toString()){
-            //Toast.makeText(this,"correct",Toast.LENGTH_SHORT).show()
             Storage.score+=5
             binding.scoreTxv.text=Storage.score.toString()
             button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.green))
 
             disableButton()
         } else{
-            //Toast.makeText(this,"incorrect",Toast.LENGTH_SHORT).show()
             Storage.score-=2
             binding.scoreTxv.text=Storage.score.toString()
             button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.red))
@@ -142,13 +140,13 @@ class Fragment1 : Fragment() {
 
     private fun disableButton() {
         for (button in btnArray){
-            button.isClickable=false
+            button.isEnabled=false
         }
     }
 
     private fun enableButton() {
         for (button in btnArray){
-            button.isClickable=true
+            button.isEnabled=true
         }
     }
 
