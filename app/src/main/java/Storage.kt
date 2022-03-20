@@ -15,19 +15,17 @@ object Storage {
     var a =-1
     var b =-1
 
-    init {
-        randomNumberA()
-        randomNumberB()
-    }
+
     fun randomNumberA():Int{
         a = (a1 .. a2).random()
         return a
     }
-    fun randomNumberB():Int{
 
+    fun randomNumberB():Int{
         b = (b1 .. b2).random()
         return b
     }
+
     fun getRandom() :Int {
         return  (result-7 .. result+7).random()
     }
