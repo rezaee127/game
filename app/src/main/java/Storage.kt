@@ -1,33 +1,36 @@
 package com.example.game
 
+
 object Storage {
     var score=0
     var questionNumber=1
     var maxScore=0
     var count=0
     var operator=""
+    var result=0
     var a1=1
     var a2=100
     var b1=1
     var b2=10
     var a =-1
     var b =-1
+
+    init {
+        randomNumberA()
+        randomNumberB()
+    }
     fun randomNumberA():Int{
-        a = (1 .. 100).random()
+        a = (a1 .. a2).random()
         return a
     }
     fun randomNumberB():Int{
 
-        b = (1 .. 10).random()
+        b = (b1 .. b2).random()
         return b
     }
-    fun getRandom():Int{
-        return (1 .. 10).random()
+    fun getRandom() :Int {
+        return  (result-7 .. result+7).random()
     }
-    fun answer():Int{
-        return a % b
-    }
-
 
 
 }

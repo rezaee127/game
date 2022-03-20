@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.game.databinding.Fragment0Binding
-import com.example.game.databinding.Fragment2Binding
 
 
 class Fragment0 : Fragment() {
@@ -21,7 +20,7 @@ class Fragment0 : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = Fragment0Binding.inflate (inflater, container, false)
         return binding.root
         // Inflate the layout for this fragment
@@ -36,13 +35,13 @@ class Fragment0 : Fragment() {
     }
 
     private fun initView() {
-        var arrayOfRadioButtons= arrayOf(binding.radioButton1,binding.radioButton2,
+        val arrayOfRadioButtons= arrayOf(binding.radioButton1,binding.radioButton2,
             binding.radioButton3,binding.radioButton4,binding.radioButton5)
 
         binding.button.setOnClickListener {
 
-            if (!binding.radioButton1.isChecked || !binding.radioButton2.isChecked ||
-                !binding.radioButton3.isChecked ||!binding.radioButton4.isChecked ||
+            if (!binding.radioButton1.isChecked && !binding.radioButton2.isChecked &&
+                !binding.radioButton3.isChecked && !binding.radioButton4.isChecked &&
                 !binding.radioButton5.isChecked){
                 binding.radioButton1.error="یک عملگر انتخاب کنید"
             }else {
@@ -56,10 +55,20 @@ class Fragment0 : Fragment() {
                     Storage.a1 = binding.editTextA1.text.toString().toInt()
                 if (!binding.editTextA2.text.isNullOrBlank())
                     Storage.a2 = binding.editTextA2.text.toString().toInt()
+                if(Storage.a1>Storage.a2){
+                    var x=Storage.a2
+                    Storage.a2=Storage.a1
+                    Storage.a1=x
+                }
                 if (!binding.editTextB1.text.isNullOrBlank())
                     Storage.b1 = binding.editTextB1.text.toString().toInt()
                 if (!binding.editTextB2.text.isNullOrBlank())
                     Storage.b2 = binding.editTextB2.text.toString().toInt()
+                if(Storage.b1>Storage.b2){
+                    var x=Storage.b2
+                    Storage.b2=Storage.b1
+                    Storage.b1=x
+                }
 
                 findNavController().navigate(R.id.action_fragment0_to_fragment1)
             }

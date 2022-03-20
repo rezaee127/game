@@ -2,7 +2,7 @@ package com.example.game
 
 import android.os.CountDownTimer
 
-fun time(){
+/*fun time(){
     object  : CountDownTimer(15000, 1000) {
 
         override fun onTick(millisUntilFinished: Long) {
@@ -16,3 +16,6 @@ fun time(){
     }.start()
 
 }
+
+
+ */

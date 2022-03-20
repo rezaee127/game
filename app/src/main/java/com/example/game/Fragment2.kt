@@ -52,8 +52,8 @@ class Fragment2 : Fragment() {
             }
         }
 
-        binding.scoreFinalTxv.text="your score is  ${Storage.score}"
-        binding.record .text="most score is  ${Storage.maxScore}"
+        binding.scoreFinalTxv.text="امتیاز شما : ${Storage.score}"
+        binding.record .text="رکورد بازی : ${Storage.maxScore}"
 
         binding.exitBtn.setOnClickListener {
             Storage.questionNumber=1
@@ -67,6 +67,10 @@ class Fragment2 : Fragment() {
             Storage.questionNumber=1
             Storage.score=0
             findNavController().navigate(R.id.action_fragment2_to_fragment1)
+        }
+
+        binding.buttonGoToFragment0.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment2_to_fragment0)
         }
 
     }
