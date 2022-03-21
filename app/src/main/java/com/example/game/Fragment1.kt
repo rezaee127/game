@@ -76,7 +76,7 @@ class Fragment1 : Fragment() {
             }
             else {
                 for (button in btnArray) {
-                    button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.purple_500))
+                    button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.purple_501))
                 }
                 enableButton()
                 flagDice=true
@@ -130,7 +130,6 @@ class Fragment1 : Fragment() {
             Storage.score+=5
             binding.scoreTxv.text=Storage.score.toString()
             button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.green))
-
             disableButton()
         } else{
             Storage.score-=2
@@ -174,8 +173,14 @@ class Fragment1 : Fragment() {
         for (button in btnArray){
             button.setOnClickListener {
                 correctAnswer(button)
+                for (button in btnArray){
+                    if(button.text==Storage.result.toString()){
+                        button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.green))
+                    }
+                }
             }
         }
+
 
     }
 

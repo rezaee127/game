@@ -37,6 +37,10 @@ android {
 
 dependencies {
 
+    def lifecycle_version = "2.5.0-alpha04"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation 'androidx.fragment:fragment-ktx:1.4.1'
+
    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def nav_version = "2.4.1"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
