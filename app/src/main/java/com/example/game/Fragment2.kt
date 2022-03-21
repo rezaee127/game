@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.game.databinding.Fragment2Binding
 import com.google.android.material.internal.ContextUtils
+import kotlin.math.abs
 
 
 class Fragment2 : Fragment() {
@@ -51,8 +52,10 @@ class Fragment2 : Fragment() {
         }
 
 
-
-        binding.scoreFinalTxv.text="امتیاز شما : ${Storage.score}"
+        if (Storage.score== abs(Storage.score))
+            binding.scoreFinalTxv.text="امتیاز شما : ${Storage.score}"
+        else
+            binding.scoreFinalTxv.text="امتیاز شما : " + abs(Storage.score) + "-"
         binding.record .text="رکورد بازی : ${Storage.maxScore}"
 
 
