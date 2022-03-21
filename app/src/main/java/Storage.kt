@@ -2,6 +2,7 @@ package com.example.game
 
 
 object Storage {
+    var timer=15000L
     var score=0
     var questionNumber=1
     var maxScore=0

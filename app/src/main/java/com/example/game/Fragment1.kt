@@ -3,22 +3,54 @@ package com.example.game
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.game.databinding.Fragment1Binding
 
 
-class Fragment1 : Fragment() {
+class Fragment1 : Fragment()  {
     lateinit var binding: Fragment1Binding
     var btnArray=ArrayList<Button>()
     var arrayOfRandoms=ArrayList<Int>()
     var flagDice=false
+
+
+    var cTimer: CountDownTimer? = null
+    fun startTimer() {
+        cTimer = object : CountDownTimer(Storage.timer, 1000) {
+            @SuppressLint("SetTextI18n")
+            override fun onTick(millisUntilFinished: Long) {
+                binding.TimeTxv.text ="${millisUntilFinished / 1000}"
+            }
+
+            override fun onFinish() {
+                binding.TimeTxv.text = "0"
+                Storage.score-=2
+                binding.scoreTxv.text=Storage.score.toString()
+                for (button in btnArray){
+                    if(button.text==Storage.result.toString()){
+                        button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
+                    }
+                }
+                disableButton()
+            }
+        }.start()
+    }
+
+    fun cancelTimer() {
+        cTimer?.cancel()
+    }
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -32,6 +64,7 @@ class Fragment1 : Fragment() {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_1, container, false)
     }
+
 
     @SuppressLint("CutPasteId")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,7 +98,7 @@ class Fragment1 : Fragment() {
         dice()
 
         binding.diceBtn.setOnClickListener {
-
+            cancelTimer()
             Storage.questionNumber++
             if (Storage.questionNumber>=6){
                 if (Storage.maxScore<Storage.score){
@@ -153,6 +186,7 @@ class Fragment1 : Fragment() {
     }
 
     fun dice() {
+        startTimer()
         if(binding.aNumberTxv.text.isBlank()||flagDice) {
             Storage.result = calculateResult()
             arrayOfRandoms.add(Storage.result)
@@ -172,6 +206,7 @@ class Fragment1 : Fragment() {
         }
         for (button in btnArray){
             button.setOnClickListener {
+                cancelTimer()
                 correctAnswer(button)
                 for (button in btnArray){
                     if(button.text==Storage.result.toString()){
@@ -180,7 +215,6 @@ class Fragment1 : Fragment() {
                 }
             }
         }
-
 
     }
 
@@ -197,6 +231,5 @@ class Fragment1 : Fragment() {
     }
 
 
-
-
 }
+
