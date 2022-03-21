@@ -41,6 +41,8 @@ class Fragment0 : Fragment() {
         val arrayOfTimeRadioButtons= arrayOf(binding.radioButton6,binding.radioButton7,
             binding.radioButton8,binding.radioButton9,binding.radioButton10)
 
+        binding.radioButton7.isChecked=true
+
         binding.button.setOnClickListener {
 
             if (!binding.radioButton1.isChecked && !binding.radioButton2.isChecked &&
