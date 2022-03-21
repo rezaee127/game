@@ -35,8 +35,13 @@ class Fragment0 : Fragment() {
     }
 
     private fun initView() {
-        val arrayOfRadioButtons= arrayOf(binding.radioButton1,binding.radioButton2,
+        val arrayOfOperatorRadioButtons= arrayOf(binding.radioButton1,binding.radioButton2,
             binding.radioButton3,binding.radioButton4,binding.radioButton5)
+
+        val arrayOfTimeRadioButtons= arrayOf(binding.radioButton6,binding.radioButton7,
+            binding.radioButton8,binding.radioButton9,binding.radioButton10)
+
+        binding.radioButton7.isChecked=true
 
         binding.button.setOnClickListener {
 
@@ -45,11 +50,24 @@ class Fragment0 : Fragment() {
                 !binding.radioButton5.isChecked){
                 binding.radioButton1.error="یک عملگر انتخاب کنید"
             }else {
-                for (i in arrayOfRadioButtons.indices) {
-                    if (arrayOfRadioButtons[i].isChecked) {
-                        Storage.operator = arrayOfRadioButtons[i].text.toString()
+                for (i in arrayOfOperatorRadioButtons.indices) {
+                    if (arrayOfOperatorRadioButtons[i].isChecked) {
+                        Storage.operator = arrayOfOperatorRadioButtons[i].text.toString()
                     }
                 }
+
+                for (i in arrayOfTimeRadioButtons.indices) {
+                    if (arrayOfTimeRadioButtons[i].isChecked) {
+                        when(i){
+                            0->Storage.timer=10000
+                            1->Storage.timer=15000
+                            2->Storage.timer=20000
+                            3->Storage.timer=25000
+                            4->Storage.timer=30000
+                        }
+                    }
+                }
+
 
                 if (!binding.editTextA1.text.isNullOrBlank())
                     Storage.a1 = binding.editTextA1.text.toString().toInt()

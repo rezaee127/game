@@ -10,17 +10,49 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.game.databinding.Fragment1Binding
 
 
-class Fragment1 : Fragment() {
+class Fragment1 : Fragment()  {
     lateinit var binding: Fragment1Binding
     val vModel:Fragment1ViewModel by viewModels()
     var btnArray=ArrayList<Button>()
     var arrayOfRandoms=ArrayList<Int>()
     var flagDice=false
+
+
+    var cTimer: CountDownTimer? = null
+    fun startTimer() {
+        cTimer = object : CountDownTimer(Storage.timer, 1000) {
+            @SuppressLint("SetTextI18n")
+            override fun onTick(millisUntilFinished: Long) {
+                binding.TimeTxv.text ="${millisUntilFinished / 1000}"
+            }
+
+            override fun onFinish() {
+                binding.TimeTxv.text = "0"
+                Storage.score-=2
+                binding.scoreTxv.text=Storage.score.toString()
+                for (button in btnArray){
+                    if(button.text==Storage.result.toString()){
+                        button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
+                    }
+                }
+                disableButton()
+            }
+        }.start()
+    }
+
+    fun cancelTimer() {
+        cTimer?.cancel()
+    }
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -67,7 +99,7 @@ class Fragment1 : Fragment() {
         dice()
 
         binding.diceBtn.setOnClickListener {
-
+            cancelTimer()
             Storage.questionNumber++
             if (Storage.questionNumber>=6){
                 if (Storage.maxScore<Storage.score){
@@ -90,7 +122,20 @@ class Fragment1 : Fragment() {
         saveOnViewModel()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString("A" , view?.findViewById<TextView>(R.id.aNumber_txv)?.text.toString())
+        outState.putString("B" , view?.findViewById<TextView>(R.id.bNumber_txv)?.text.toString())
+        outState.putString("Text" , view?.findViewById<TextView>(R.id.text_view_comment)?.text.toString())
+        outState.putString("Button1" ,view?.findViewById<Button>(R.id.answer1_btn)?.text.toString())
+        outState.putString("Button2" , view?.findViewById<Button>(R.id.answer2_btn)?.text.toString())
+        outState.putString("Button3" , view?.findViewById<Button>(R.id.answer3_btn)?.text.toString())
+        outState.putString("Button4" , view?.findViewById<Button>(R.id.answer4_btn)?.text.toString())
+        outState.putString("Score" , view?.findViewById<TextView>(R.id.score_txv)?.text.toString())
+        outState.putInt("questionNumber" ,Storage.questionNumber)
+        view?.findViewById<Button>(R.id.answer4_btn)?.isEnabled?.let { outState.putBoolean("isEnabled",it)}
+        super.onSaveInstanceState(outState)
 
+    }
 
 
 
@@ -144,6 +189,7 @@ class Fragment1 : Fragment() {
     }
 
     fun dice() {
+        startTimer()
         if(binding.aNumberTxv.text.isBlank()||flagDice) {
             Storage.result = calculateResult()
             arrayOfRandoms.add(Storage.result)
@@ -163,6 +209,7 @@ class Fragment1 : Fragment() {
         }
         for (button in btnArray){
             button.setOnClickListener {
+                cancelTimer()
                 correctAnswer(button)
                 for (button in btnArray){
                     if(button.text==Storage.result.toString()){
@@ -201,5 +248,5 @@ class Fragment1 : Fragment() {
 
 
     }
-
 }
+
