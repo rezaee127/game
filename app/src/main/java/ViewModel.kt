@@ -10,7 +10,7 @@ class Fragment1ViewModel:ViewModel(){
     var textOfAnswer2Btn=""
     var textOfAnswer3Btn=""
     var textOfAnswer4Btn=""
-    var textOfScoreTxw=""
+    var textOfScoreTxv=""
     var enable=true
     val storage=Storage
 

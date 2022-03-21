@@ -39,7 +39,7 @@ class Fragment1 : Fragment()  {
                 binding.scoreTxv.text=vModel.storage.score.toString()
                 for (button in btnArray){
                     if(button.text==vModel.storage.result.toString()){
-                        button.text="${vModel.storage.result.toString()}درست است"
+                        button.text="**${vModel.storage.result.toString()}**"
                         //button.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.green))
                     }
                 }
@@ -87,8 +87,9 @@ class Fragment1 : Fragment()  {
             view.findViewById<Button>(R.id.answer2_btn).isEnabled = vModel.enable
             view.findViewById<Button>(R.id.answer3_btn).isEnabled = vModel.enable
             view.findViewById<Button>(R.id.answer4_btn).isEnabled = vModel.enable
-            view.findViewById<TextView>(R.id.score_txv).text= vModel.textOfScoreTxw
-
+            view.findViewById<TextView>(R.id.score_txv).text= vModel.textOfScoreTxv
+            if(vModel.textOfScoreTxv!="")
+                vModel.storage.score=vModel.textOfScoreTxv.toInt()
 
 
 
@@ -236,7 +237,7 @@ class Fragment1 : Fragment()  {
         vModel.textOfAnswer2Btn=view?.findViewById<Button>(R.id.answer2_btn)?.text.toString()
         vModel.textOfAnswer3Btn=view?.findViewById<Button>(R.id.answer3_btn)?.text.toString()
         vModel.textOfAnswer4Btn=view?.findViewById<Button>(R.id.answer4_btn)?.text.toString()
-        vModel.textOfScoreTxw=view?.findViewById<TextView>(R.id.score_txv)?.text.toString()
+        vModel.textOfScoreTxv=view?.findViewById<TextView>(R.id.score_txv)?.text.toString()
         vModel.enable= view?.findViewById<Button>(R.id.answer4_btn)?.isEnabled == true
 
     }
