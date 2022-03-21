@@ -204,6 +204,7 @@ class Fragment1 : Fragment()  {
             button.setOnClickListener {
                 cancelTimer()
                 correctAnswer(button)
+                saveOnViewModel()
                 for (button in btnArray){
                     if(button.text==vModel.storage.result.toString()){
                         button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.green))
