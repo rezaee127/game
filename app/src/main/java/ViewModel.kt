@@ -13,8 +13,6 @@ class Fragment1ViewModel:ViewModel(){
     var textOfScoreTxw=""
     var enable=true
     val storage=Storage
-    init {
-        val storage=Storage
-    }
+
 }
 

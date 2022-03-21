@@ -26,7 +26,7 @@ class Fragment1 : Fragment()  {
 
     var cTimer: CountDownTimer? = null
     fun startTimer() {
-        cTimer = object : CountDownTimer(Storage.timer, 1000) {
+        cTimer = object : CountDownTimer(vModel.storage.timer, 1000) {
             @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
                 binding.TimeTxv.text ="${millisUntilFinished / 1000}"
@@ -35,11 +35,11 @@ class Fragment1 : Fragment()  {
             @SuppressLint("SetTextI18n")
             override fun onFinish() {
                 binding.TimeTxv.text = "0"
-                Storage.score-=2
-                binding.scoreTxv.text=Storage.score.toString()
+                vModel.storage.score-=2
+                binding.scoreTxv.text=vModel.storage.score.toString()
                 for (button in btnArray){
-                    if(button.text==Storage.result.toString()){
-                        button.text="${Storage.result.toString()}درست است"
+                    if(button.text==vModel.storage.result.toString()){
+                        button.text="${vModel.storage.result.toString()}درست است"
                         //button.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.green))
                     }
                 }
@@ -94,7 +94,7 @@ class Fragment1 : Fragment()  {
 
         val pref = requireActivity().getSharedPreferences("share", Context.MODE_PRIVATE)
         if (!(pref.getString("maxScore","")).isNullOrBlank()) {
-            Storage.maxScore = pref.getString("maxScore", "").toString().toInt()
+            vModel.storage.maxScore = pref.getString("maxScore", "").toString().toInt()
         }
 
         btnArray = arrayListOf(binding.answer1Btn,binding.answer2Btn
@@ -105,12 +105,12 @@ class Fragment1 : Fragment()  {
 
         binding.diceBtn.setOnClickListener {
             cancelTimer()
-            Storage.questionNumber++
-            if (Storage.questionNumber>=6){
-                if (Storage.maxScore<Storage.score){
-                    Storage.maxScore=Storage.score
+            vModel.storage.questionNumber++
+            if (vModel.storage.questionNumber>=6){
+                if (vModel.storage.maxScore<vModel.storage.score){
+                    vModel.storage.maxScore=vModel.storage.score
                 }
-                Storage.questionNumber=1
+                vModel.storage.questionNumber=1
                 findNavController().navigate(R.id.action_fragment1_to_fragment2)
             }
             else {
@@ -135,11 +135,11 @@ class Fragment1 : Fragment()  {
     fun setTextButton(number:Int){
         for (i in btnArray.indices){
             if (number == i){
-                btnArray[i].text =Storage.result.toString()
+                btnArray[i].text =vModel.storage.result.toString()
             }else{
                 var flag=true
                 while(flag){
-                    val rand=Storage.getRandom()
+                    val rand=vModel.storage.getRandom()
                     if(rand !in arrayOfRandoms){
                         btnArray[i].text=rand.toString()
                         arrayOfRandoms.add(rand)
@@ -154,14 +154,14 @@ class Fragment1 : Fragment()  {
 
 
     fun correctAnswer(button: Button){
-        if(button.text==Storage.result.toString()){
-            Storage.score+=5
-            binding.scoreTxv.text=Storage.score.toString()
+        if(button.text==vModel.storage.result.toString()){
+            vModel.storage.score+=5
+            binding.scoreTxv.text=vModel.storage.score.toString()
             button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.green))
             disableButton()
         } else{
-            Storage.score-=2
-            binding.scoreTxv.text=Storage.score.toString()
+            vModel.storage.score-=2
+            binding.scoreTxv.text=vModel.storage.score.toString()
             button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.red))
             disableButton()
         }
@@ -183,13 +183,13 @@ class Fragment1 : Fragment()  {
     fun dice() {
         startTimer()
         if(binding.aNumberTxv.text.isBlank()||flagDice) {
-            Storage.result = calculateResult()
-            arrayOfRandoms.add(Storage.result)
+            vModel.storage.result = calculateResult()
+            arrayOfRandoms.add(vModel.storage.result)
 
-            binding.aNumberTxv.text = Storage.a.toString()
-            binding.bNumberTxv.text = Storage.b.toString()
-            binding.scoreTxv.text = Storage.score.toString()
-            when(Storage.operator){
+            binding.aNumberTxv.text = vModel.storage.a.toString()
+            binding.bNumberTxv.text = vModel.storage.b.toString()
+            binding.scoreTxv.text = vModel.storage.score.toString()
+            when(vModel.storage.operator){
                 "+"-> binding.textViewComment.text="مجموع دو عدد بالا را حدس بزنید"
                 "-"-> binding.textViewComment.text="نتیجه تفریق عدد پایینی از عدد بالایی کدام است؟"
                 "*"-> binding.textViewComment.text="حاصل ضرب دو عدد بالا را حدس بزنید"
@@ -204,7 +204,7 @@ class Fragment1 : Fragment()  {
                 cancelTimer()
                 correctAnswer(button)
                 for (button in btnArray){
-                    if(button.text==Storage.result.toString()){
+                    if(button.text==vModel.storage.result.toString()){
                         button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.green))
                     }
                 }
@@ -215,18 +215,19 @@ class Fragment1 : Fragment()  {
     }
 
     private fun calculateResult():Int {
-        Storage.a=Storage.randomNumberA()
-        Storage.b=Storage.randomNumberB()
-       return when (Storage.operator){
-            "+" -> Storage.a+Storage.b
-            "-" -> Storage.a-Storage.b
-            "*" -> Storage.a*Storage.b
-            "/" -> Storage.a/Storage.b
-            else -> Storage.a%Storage.b
+        vModel.storage.a=vModel.storage.randomNumberA()
+        vModel.storage.b=vModel.storage.randomNumberB()
+       return when (vModel.storage.operator){
+            "+" -> vModel.storage.a+vModel.storage.b
+            "-" -> vModel.storage.a-vModel.storage.b
+            "*" -> vModel.storage.a*vModel.storage.b
+            "/" -> vModel.storage.a/vModel.storage.b
+            else -> vModel.storage.a%vModel.storage.b
         }
     }
 
 
+     @SuppressLint("CutPasteId")
      fun saveOnViewModel() {
         vModel.aNumber=view?.findViewById<TextView>(R.id.aNumber_txv)?.text.toString()
         vModel.bNumber=view?.findViewById<TextView>(R.id.bNumber_txv)?.text.toString()
