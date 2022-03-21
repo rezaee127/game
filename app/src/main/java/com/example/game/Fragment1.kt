@@ -3,6 +3,7 @@ package com.example.game
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.game.databinding.Fragment1Binding
@@ -32,15 +32,19 @@ class Fragment1 : Fragment()  {
                 binding.TimeTxv.text ="${millisUntilFinished / 1000}"
             }
 
+            @SuppressLint("SetTextI18n")
             override fun onFinish() {
                 binding.TimeTxv.text = "0"
                 Storage.score-=2
                 binding.scoreTxv.text=Storage.score.toString()
                 for (button in btnArray){
                     if(button.text==Storage.result.toString()){
-                        button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
+                        button.text="${Storage.result.toString()}درست است"
+                        //button.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.green))
                     }
                 }
+
+
                 disableButton()
             }
         }.start()
@@ -87,6 +91,7 @@ class Fragment1 : Fragment()  {
 
 
 
+
         val pref = requireActivity().getSharedPreferences("share", Context.MODE_PRIVATE)
         if (!(pref.getString("maxScore","")).isNullOrBlank()) {
             Storage.maxScore = pref.getString("maxScore", "").toString().toInt()
@@ -119,23 +124,10 @@ class Fragment1 : Fragment()  {
             }
         }
 
-        saveOnViewModel()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("A" , view?.findViewById<TextView>(R.id.aNumber_txv)?.text.toString())
-        outState.putString("B" , view?.findViewById<TextView>(R.id.bNumber_txv)?.text.toString())
-        outState.putString("Text" , view?.findViewById<TextView>(R.id.text_view_comment)?.text.toString())
-        outState.putString("Button1" ,view?.findViewById<Button>(R.id.answer1_btn)?.text.toString())
-        outState.putString("Button2" , view?.findViewById<Button>(R.id.answer2_btn)?.text.toString())
-        outState.putString("Button3" , view?.findViewById<Button>(R.id.answer3_btn)?.text.toString())
-        outState.putString("Button4" , view?.findViewById<Button>(R.id.answer4_btn)?.text.toString())
-        outState.putString("Score" , view?.findViewById<TextView>(R.id.score_txv)?.text.toString())
-        outState.putInt("questionNumber" ,Storage.questionNumber)
-        view?.findViewById<Button>(R.id.answer4_btn)?.isEnabled?.let { outState.putBoolean("isEnabled",it)}
-        super.onSaveInstanceState(outState)
 
     }
+
+
 
 
 
@@ -218,7 +210,7 @@ class Fragment1 : Fragment()  {
                 }
             }
         }
-
+        saveOnViewModel()
 
     }
 
@@ -244,8 +236,7 @@ class Fragment1 : Fragment()  {
         vModel.textOfAnswer3Btn=view?.findViewById<Button>(R.id.answer3_btn)?.text.toString()
         vModel.textOfAnswer4Btn=view?.findViewById<Button>(R.id.answer4_btn)?.text.toString()
         vModel.textOfScoreTxw=view?.findViewById<TextView>(R.id.score_txv)?.text.toString()
-        vModel.enable=binding.answer4Btn.isEnabled
-
+        vModel.enable= view?.findViewById<Button>(R.id.answer4_btn)?.isEnabled == true
 
     }
 }
