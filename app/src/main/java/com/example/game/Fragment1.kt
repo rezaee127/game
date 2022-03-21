@@ -10,12 +10,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.game.databinding.Fragment1Binding
 
 
 class Fragment1 : Fragment() {
     lateinit var binding: Fragment1Binding
+    val vModel:Fragment1ViewModel by viewModels()
     var btnArray=ArrayList<Button>()
     var arrayOfRandoms=ArrayList<Int>()
     var flagDice=false
@@ -37,21 +39,21 @@ class Fragment1 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(savedInstanceState!= null){
-            view.findViewById<TextView>(R.id.aNumber_txv).text = savedInstanceState.getString("A")
-            view.findViewById<TextView>(R.id.bNumber_txv).text = savedInstanceState.getString("B")
-            view.findViewById<TextView>(R.id.text_view_comment).text = savedInstanceState.getString("Text")
-            view.findViewById<Button>(R.id.answer1_btn).text = savedInstanceState.getString("Button1")
-            view.findViewById<Button>(R.id.answer2_btn).text = savedInstanceState.getString("Button2")
-            view.findViewById<Button>(R.id.answer3_btn).text = savedInstanceState.getString("Button3")
-            view.findViewById<Button>(R.id.answer4_btn).text = savedInstanceState.getString("Button4")
-            view.findViewById<Button>(R.id.answer1_btn).isEnabled = savedInstanceState.getBoolean("isEnabled")
-            view.findViewById<Button>(R.id.answer2_btn).isEnabled = savedInstanceState.getBoolean("isEnabled")
-            view.findViewById<Button>(R.id.answer3_btn).isEnabled = savedInstanceState.getBoolean("isEnabled")
-            view.findViewById<Button>(R.id.answer4_btn).isEnabled = savedInstanceState.getBoolean("isEnabled")
-            view.findViewById<TextView>(R.id.score_txv).text= savedInstanceState.getString("Score")
-            Storage.questionNumber= savedInstanceState.getInt("questionNumber")
-        }
+
+            view.findViewById<TextView>(R.id.aNumber_txv).text = vModel.aNumber
+            view.findViewById<TextView>(R.id.bNumber_txv).text = vModel.bNumber
+            view.findViewById<TextView>(R.id.text_view_comment).text = vModel.comment
+            view.findViewById<Button>(R.id.answer1_btn).text = vModel.textOfAnswer1Btn
+            view.findViewById<Button>(R.id.answer2_btn).text = vModel.textOfAnswer2Btn
+            view.findViewById<Button>(R.id.answer3_btn).text = vModel.textOfAnswer3Btn
+            view.findViewById<Button>(R.id.answer4_btn).text = vModel.textOfAnswer4Btn
+            view.findViewById<Button>(R.id.answer1_btn).isEnabled = vModel.enable
+            view.findViewById<Button>(R.id.answer2_btn).isEnabled = vModel.enable
+            view.findViewById<Button>(R.id.answer3_btn).isEnabled = vModel.enable
+            view.findViewById<Button>(R.id.answer4_btn).isEnabled = vModel.enable
+            view.findViewById<TextView>(R.id.score_txv).text= vModel.textOfScoreTxw
+
+
 
         val pref = requireActivity().getSharedPreferences("share", Context.MODE_PRIVATE)
         if (!(pref.getString("maxScore","")).isNullOrBlank()) {
@@ -84,22 +86,11 @@ class Fragment1 : Fragment() {
 
             }
         }
+
+        saveOnViewModel()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("A" , view?.findViewById<TextView>(R.id.aNumber_txv)?.text.toString())
-        outState.putString("B" , view?.findViewById<TextView>(R.id.bNumber_txv)?.text.toString())
-        outState.putString("Text" , view?.findViewById<TextView>(R.id.text_view_comment)?.text.toString())
-        outState.putString("Button1" ,view?.findViewById<Button>(R.id.answer1_btn)?.text.toString())
-        outState.putString("Button2" , view?.findViewById<Button>(R.id.answer2_btn)?.text.toString())
-        outState.putString("Button3" , view?.findViewById<Button>(R.id.answer3_btn)?.text.toString())
-        outState.putString("Button4" , view?.findViewById<Button>(R.id.answer4_btn)?.text.toString())
-        outState.putString("Score" , view?.findViewById<TextView>(R.id.score_txv)?.text.toString())
-        outState.putInt("questionNumber" ,Storage.questionNumber)
-        view?.findViewById<Button>(R.id.answer4_btn)?.isEnabled?.let { outState.putBoolean("isEnabled",it)}
-        super.onSaveInstanceState(outState)
 
-    }
 
 
 
@@ -197,6 +188,18 @@ class Fragment1 : Fragment() {
     }
 
 
+     fun saveOnViewModel() {
+        vModel.aNumber=view?.findViewById<TextView>(R.id.aNumber_txv)?.text.toString()
+        vModel.bNumber=view?.findViewById<TextView>(R.id.bNumber_txv)?.text.toString()
+        vModel.comment=view?.findViewById<TextView>(R.id.text_view_comment)?.text.toString()
+        vModel.textOfAnswer1Btn=view?.findViewById<Button>(R.id.answer1_btn)?.text.toString()
+        vModel.textOfAnswer2Btn=view?.findViewById<Button>(R.id.answer2_btn)?.text.toString()
+        vModel.textOfAnswer3Btn=view?.findViewById<Button>(R.id.answer3_btn)?.text.toString()
+        vModel.textOfAnswer4Btn=view?.findViewById<Button>(R.id.answer4_btn)?.text.toString()
+        vModel.textOfScoreTxw=view?.findViewById<TextView>(R.id.score_txv)?.text.toString()
+        vModel.enable=binding.answer4Btn.isEnabled
 
+
+    }
 
 }

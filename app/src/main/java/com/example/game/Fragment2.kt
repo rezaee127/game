@@ -14,7 +14,7 @@ import com.google.android.material.internal.ContextUtils
 
 class Fragment2 : Fragment() {
     lateinit var binding: Fragment2Binding
-   // var max=""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
