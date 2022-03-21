@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.navigation.fragment.findNavController
 import com.example.game.databinding.Fragment2Binding
 import com.google.android.material.internal.ContextUtils
@@ -62,7 +63,7 @@ class Fragment2 : Fragment() {
         binding.exitBtn.setOnClickListener {
             Storage.questionNumber=1
             Storage.score=0
-            ContextUtils.getActivity(this.context)?.finishAffinity()
+            requireActivity().finishAffinity()
         }
 
 
