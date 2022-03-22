@@ -36,7 +36,8 @@ class Fragment1 : Fragment()  {
                 binding.scoreTxv.text=Storage.score.toString()
                 for (button in btnArray){
                     if(button.text==Storage.result.toString()){
-                        button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
+                        context?.let { ContextCompat.getColor(it, R.color.green) }
+                            ?.let { button.setBackgroundColor(it) }
                     }
                 }
                 disableButton()
