@@ -32,7 +32,7 @@ class Fragment1 : Fragment()  {
 
             override fun onFinish() {
                 binding.TimeTxv.text = "0"
-                Storage.score-=2
+                //Storage.score-=2
                 binding.scoreTxv.text=Storage.score.toString()
                 for (button in btnArray){
                     if(button.text==Storage.result.toString()){
