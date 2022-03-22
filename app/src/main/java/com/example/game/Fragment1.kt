@@ -39,8 +39,8 @@ class Fragment1 : Fragment()  {
                 binding.scoreTxv.text=vModel.storage.score.toString()
                 for (button in btnArray){
                     if(button.text==vModel.storage.result.toString()){
-                        button.text="**${vModel.storage.result}**"
-                        //button.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.green))
+                        context?.let { ContextCompat.getColor(it, R.color.green) }
+                            ?.let { button.setBackgroundColor(it) }
                     }
                 }
 
