@@ -35,7 +35,7 @@ class Fragment1 : Fragment()  {
             @SuppressLint("SetTextI18n")
             override fun onFinish() {
                 binding.TimeTxv.text = "0"
-                vModel.storage.score-=2
+                //vModel.storage.score-=2
                 binding.scoreTxv.text=vModel.storage.score.toString()
                 for (button in btnArray){
                     if(button.text==vModel.storage.result.toString()){
