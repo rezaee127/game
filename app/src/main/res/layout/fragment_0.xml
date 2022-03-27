@@ -210,12 +210,21 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4">
 
             <RadioButton
+                android:id="@+id/radioButton11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:layout_marginEnd="10dp"
+                android:text="50" />
+
+
+            <RadioButton
                 android:id="@+id/radioButton10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
                 android:layout_marginEnd="10dp"
-                android:text="30" />
+                android:text="40" />
 
             <RadioButton
                 android:id="@+id/radioButton9"
@@ -223,7 +232,7 @@
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
                 android:layout_marginEnd="10dp"
-                android:text="25" />
+                android:text="30" />
 
             <RadioButton
                 android:id="@+id/radioButton8"
@@ -247,7 +256,7 @@
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
                 android:layout_marginEnd="10dp"
-                android:text="10ثانیه" />
+                android:text="10" />
         </RadioGroup>
 
 
