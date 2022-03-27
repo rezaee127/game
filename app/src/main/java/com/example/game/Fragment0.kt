@@ -39,7 +39,7 @@ class Fragment0 : Fragment() {
             binding.radioButton3,binding.radioButton4,binding.radioButton5)
 
         val arrayOfTimeRadioButtons= arrayOf(binding.radioButton6,binding.radioButton7,
-            binding.radioButton8,binding.radioButton9,binding.radioButton10)
+            binding.radioButton8,binding.radioButton9,binding.radioButton10,binding.radioButton11)
 
         binding.radioButton7.isChecked=true
 
@@ -62,8 +62,9 @@ class Fragment0 : Fragment() {
                             0->Storage.timer=10000
                             1->Storage.timer=15000
                             2->Storage.timer=20000
-                            3->Storage.timer=25000
-                            4->Storage.timer=30000
+                            3->Storage.timer=30000
+                            4->Storage.timer=40000
+                            5->Storage.timer=50000
                         }
                     }
                 }
