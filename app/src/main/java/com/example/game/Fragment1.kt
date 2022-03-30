@@ -204,7 +204,6 @@ class Fragment1 : Fragment()  {
             button.setOnClickListener {
                 cancelTimer()
                 correctAnswer(button)
-                saveOnViewModel()
                 for (button in btnArray){
                     if(button.text==vModel.storage.result.toString()){
                         button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.green))
@@ -212,7 +211,6 @@ class Fragment1 : Fragment()  {
                 }
             }
         }
-        saveOnViewModel()
 
     }
 
@@ -241,6 +239,11 @@ class Fragment1 : Fragment()  {
         vModel.textOfScoreTxv=view?.findViewById<TextView>(R.id.score_txv)?.text.toString()
         vModel.enable= view?.findViewById<Button>(R.id.answer4_btn)?.isEnabled == true
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        saveOnViewModel()
     }
 }
 
