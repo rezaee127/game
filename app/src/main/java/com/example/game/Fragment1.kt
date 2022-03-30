@@ -20,7 +20,6 @@ class Fragment1 : Fragment()  {
     lateinit var binding: Fragment1Binding
     val vModel:Fragment1ViewModel by viewModels()
     var btnArray=ArrayList<Button>()
-    var arrayOfRandoms=ArrayList<Int>()
     var flagDice=false
 
 
@@ -141,9 +140,9 @@ class Fragment1 : Fragment()  {
                 var flag=true
                 while(flag){
                     val rand=vModel.storage.getRandom()
-                    if(rand !in arrayOfRandoms){
+                    if(rand !in vModel.storage.arrayOfRandoms){
                         btnArray[i].text=rand.toString()
-                        arrayOfRandoms.add(rand)
+                        vModel.storage.arrayOfRandoms.add(rand)
                         flag=false
                     }
                 }
@@ -183,9 +182,9 @@ class Fragment1 : Fragment()  {
 
     fun dice() {
         startTimer()
-        if(binding.aNumberTxv.text.isBlank()||flagDice) {
+        if(binding.aNumberTxv.text.isBlank()|| flagDice) {
             vModel.storage.result = calculateResult()
-            arrayOfRandoms.add(vModel.storage.result)
+            vModel.storage.arrayOfRandoms.add(vModel.storage.result)
 
             binding.aNumberTxv.text = vModel.storage.a.toString()
             binding.bNumberTxv.text = vModel.storage.b.toString()
