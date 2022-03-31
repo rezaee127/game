@@ -12,6 +12,8 @@ class Fragment1ViewModel:ViewModel(){
     var textOfAnswer4Btn=""
     var textOfScoreTxv=""
     var enable=true
+    var flagDice=false
+    var count=0
     val storage=Storage
 
 }

@@ -20,7 +20,7 @@ class Fragment1 : Fragment()  {
     lateinit var binding: Fragment1Binding
     val vModel:Fragment1ViewModel by viewModels()
     var btnArray=ArrayList<Button>()
-    var flagDice=false
+
 
 
     var cTimer: CountDownTimer? = null
@@ -34,7 +34,11 @@ class Fragment1 : Fragment()  {
             @SuppressLint("SetTextI18n")
             override fun onFinish() {
                 binding.TimeTxv.text = "0"
-                vModel.storage.score-=2
+                if (vModel.count==0) {
+                    vModel.storage.score -= 2
+                }else
+                    vModel.count--
+
                 binding.scoreTxv.text=vModel.storage.score.toString()
                 for (button in btnArray){
                     if(button.text==vModel.storage.result.toString()){
@@ -118,7 +122,8 @@ class Fragment1 : Fragment()  {
                     button.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.purple_501))
                 }
                 enableButton()
-                flagDice=true
+                vModel.flagDice=true
+                vModel.count=0
                 dice()
 
             }
@@ -182,7 +187,7 @@ class Fragment1 : Fragment()  {
 
     fun dice() {
         startTimer()
-        if(binding.aNumberTxv.text.isBlank()|| flagDice) {
+        if(binding.aNumberTxv.text.isBlank()|| vModel.flagDice) {
             vModel.storage.result = calculateResult()
             vModel.storage.arrayOfRandoms.add(vModel.storage.result)
 
@@ -198,6 +203,7 @@ class Fragment1 : Fragment()  {
             }
             val numRandom = (0..3).random()
             setTextButton(numRandom)
+            vModel.flagDice=false
         }
         for (button in btnArray){
             button.setOnClickListener {
@@ -237,7 +243,7 @@ class Fragment1 : Fragment()  {
         vModel.textOfAnswer4Btn=view?.findViewById<Button>(R.id.answer4_btn)?.text.toString()
         vModel.textOfScoreTxv=view?.findViewById<TextView>(R.id.score_txv)?.text.toString()
         vModel.enable= view?.findViewById<Button>(R.id.answer4_btn)?.isEnabled == true
-
+        vModel.count++
     }
 
     override fun onStop() {
