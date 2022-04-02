@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="1"
-            android:inputType="number"
+            android:inputType="numberSigned"
             android:minWidth="48dp"
             android:minHeight="48dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="100"
-            android:inputType="number"
+            android:inputType="numberSigned"
             android:minWidth="48dp"
             android:minHeight="48dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView2"
@@ -84,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="1"
-            android:inputType="number"
+            android:inputType="numberSigned"
             android:minWidth="48dp"
             android:minHeight="48dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView3"
@@ -113,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="10"
-            android:inputType="number"
+            android:inputType="numberSigned"
             android:minWidth="48dp"
             android:minHeight="48dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView5"
@@ -215,7 +215,7 @@
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
                 android:layout_marginEnd="10dp"
-                android:text="50" />
+                android:text="60" />
 
             <RadioButton
                 android:id="@+id/radioButton10"
@@ -223,7 +223,7 @@
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
                 android:layout_marginEnd="10dp"
-                android:text="40" />
+                android:text="50" />
 
             <RadioButton
                 android:id="@+id/radioButton9"
@@ -231,7 +231,7 @@
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
                 android:layout_marginEnd="10dp"
-                android:text="30" />
+                android:text="40" />
 
             <RadioButton
                 android:id="@+id/radioButton8"
@@ -239,7 +239,7 @@
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
                 android:layout_marginEnd="10dp"
-                android:text="20" />
+                android:text="30" />
 
             <RadioButton
                 android:id="@+id/radioButton7"
@@ -247,7 +247,7 @@
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
                 android:layout_marginEnd="10dp"
-                android:text="15" />
+                android:text="20" />
 
             <RadioButton
                 android:id="@+id/radioButton6"
