@@ -93,7 +93,7 @@ class Fragment1 : Fragment()  {
             view.findViewById<TextView>(R.id.score_txv).text= vModel.textOfScoreTxv
             if(vModel.textOfScoreTxv!="")
                 vModel.storage.score=vModel.textOfScoreTxv.toInt()
-
+            vModel.storage.arrayOfRandoms.clear()
 
 
         val pref = requireActivity().getSharedPreferences("share", Context.MODE_PRIVATE)
