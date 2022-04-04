@@ -102,10 +102,6 @@ class Fragment0 : Fragment() {
                     Storage.b1=x
                 }
 
-                if (Storage.a2-Storage.a1<=7)
-                    Storage.a1-=7
-                if(Storage.b2-Storage.b1<=7)
-                    Storage.b1-=7
 
                 findNavController().navigate(R.id.action_fragment0_to_fragment1)
             }

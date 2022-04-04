@@ -93,7 +93,6 @@ class Fragment1 : Fragment()  {
             view.findViewById<TextView>(R.id.score_txv).text= vModel.textOfScoreTxv
             if(vModel.textOfScoreTxv!="")
                 vModel.storage.score=vModel.textOfScoreTxv.toInt()
-            vModel.storage.arrayOfRandoms.clear()
 
 
         val pref = requireActivity().getSharedPreferences("share", Context.MODE_PRIVATE)
@@ -188,6 +187,7 @@ class Fragment1 : Fragment()  {
     fun dice() {
         startTimer()
         if(binding.aNumberTxv.text.isBlank()|| vModel.flagDice) {
+            vModel.storage.arrayOfRandoms.clear()
             vModel.storage.result = calculateResult()
             vModel.storage.arrayOfRandoms.add(vModel.storage.result)
 

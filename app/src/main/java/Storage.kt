@@ -28,7 +28,10 @@ object Storage {
     }
 
     fun getRandom() :Int {
-        return  (result-7 .. result+7).random()
+        return when(operator){
+            "+" -> (result-2 .. result+3).random()
+            else -> (result-3 .. result+2).random()
+        }
     }
 
 
