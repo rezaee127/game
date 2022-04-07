@@ -84,18 +84,18 @@ class Fragment0 : Fragment() {
 
 
                 if (!binding.editTextA1.text.isNullOrBlank())
-                    Storage.a1 = binding.editTextA1.text.toString().toInt()
+                    Storage.a1 = binding.editTextA1.text.toString().toLong()
                 if (!binding.editTextA2.text.isNullOrBlank())
-                    Storage.a2 = binding.editTextA2.text.toString().toInt()
+                    Storage.a2 = binding.editTextA2.text.toString().toLong()
                 if (Storage.a1 > Storage.a2) {
                     val x = Storage.a2
                     Storage.a2 = Storage.a1
                     Storage.a1 = x
                 }
                 if (!binding.editTextB1.text.isNullOrBlank())
-                    Storage.b1 = binding.editTextB1.text.toString().toInt()
+                    Storage.b1 = binding.editTextB1.text.toString().toLong()
                 if (!binding.editTextB2.text.isNullOrBlank())
-                    Storage.b2 = binding.editTextB2.text.toString().toInt()
+                    Storage.b2 = binding.editTextB2.text.toString().toLong()
                 if(Storage.b1>Storage.b2){
                     val x=Storage.b2
                     Storage.b2=Storage.b1

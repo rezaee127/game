@@ -7,27 +7,27 @@ object Storage {
     var questionNumber=1
     var maxScore=0
     var operator=""
-    var result=0
-    var a1=1
-    var a2=100
-    var b1=1
-    var b2=10
-    var a =-1
-    var b =-1
-    var arrayOfRandoms=ArrayList<Int>()
+    var result=0L
+    var a1=1L
+    var a2=100L
+    var b1=1L
+    var b2=10L
+    var a =-1L
+    var b =-1L
+    var arrayOfRandoms=ArrayList<Long>()
 
 
-    fun randomNumberA():Int{
+    fun randomNumberA():Long{
         a = (a1 .. a2).random()
         return a
     }
 
-    fun randomNumberB():Int{
+    fun randomNumberB():Long{
         b = (b1 .. b2).random()
         return b
     }
 
-    fun getRandom() :Int {
+    fun getRandom() :Long {
         return when(operator){
             "+" -> (result-2 .. result+3).random()
             else -> (result-3 .. result+2).random()

@@ -219,7 +219,7 @@ class Fragment1 : Fragment()  {
 
     }
 
-    private fun calculateResult():Int {
+    private fun calculateResult():Long {
         vModel.storage.a=vModel.storage.randomNumberA()
         vModel.storage.b=vModel.storage.randomNumberB()
        return when (vModel.storage.operator){
